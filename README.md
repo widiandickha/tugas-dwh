@@ -13,6 +13,12 @@ Repository ini berisi rancangan arsitektur Data Warehouse (DWH), pemodelan dimen
 
 ---
 
+## 📐 Arsitektur Star Schema
+
+![Star Schema Diagram](docs/images/star_schema.png)
+
+---
+
 ## 👥 Pembagian Peran Kelompok
 
 1. **Anggota 1 (Data Architect & Business Analyst):**

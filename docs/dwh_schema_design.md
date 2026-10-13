@@ -59,7 +59,11 @@ Penetapan grain pada tingkat item pesanan memungkinkan analis untuk:
 
 ---
 
-## 3. Diagram Relasi Star Schema (Mermaid ERD)
+## 3. Diagram Visual Star Schema
+
+![Star Schema DWH](images/star_schema.png)
+
+### Diagram Relasi ERD (Mermaid)
 
 Berikut adalah visualisasi hubungan tabel fakta dan dimensi dalam arsitektur Star Schema:
 

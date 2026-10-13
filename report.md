@@ -24,7 +24,9 @@ Seluruh aset perancangan dari Anggota 1 telah selesai dibuat, diverifikasi, dan 
 ### Poin 2: Desain Star Schema & ERD (`docs/dwh_schema_design.md` & `SKEMA DATA.png`)
 * Menetapkan **Grain**: 1 baris pada tabel fakta `fact_order_items` mewakili 1 unit item produk dalam 1 nomor transaksi pesanan unik (*atomic order-item level*).
 * Menghubungkan 1 tabel fakta pusat (`fact_order_items`) dengan 7 tabel dimensi (`dim_date`, `dim_customers`, `dim_products`, `dim_sellers`, `dim_order_status`, `dim_payments`, `dim_reviews`).
-* Menyediakan kode DBML dan diagram ERD untuk dokumentasi visual arsitektur.
+* Menyediakan kode DBML dan diagram ERD untuk dokumentasi visual arsitektur:
+
+![Star Schema Diagram](docs/images/star_schema.png)
 
 ### Poin 3: Kamus Data / Data Dictionary (`docs/data_dictionary.md`)
 * Memuat rincian teknis 8 tabel: tipe data MySQL, Primary Key / Surrogate Key, Foreign Key, Degenerate Dimension, aturan nilai kosong (nullable), nilai default, dan formula kolom turunan.
