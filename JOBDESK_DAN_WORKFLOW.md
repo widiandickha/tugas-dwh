@@ -12,6 +12,11 @@ Alur proyek terdiri dari 5 tahapan utama:
 4. **AI-Driven ETL:** Membangun pipeline ekstraksi, transformasi dengan bantuan AI, dan loading ke database.
 5. **Validation & Reporting:** Menjalankan query analisis dan menyusun laporan akhir.
 
+> **Kesepakatan Teknis Kelompok:**
+> * **Dataset:** [Brazilian E-Commerce Public Dataset by Olist (Kaggle)](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+> * **Target Database DWH:** **MySQL 8.x** (Nama database: `dwh_olist`, engine: `InnoDB`, charset: `utf8mb4`)
+> * **Arsitektur Pemodelan:** Star Schema (Kimball Methodology) dengan skrip DDL di `sql/schema_dwh.sql`
+
 ---
 
 ## 👥 Profil & Rincian Tugas Anggota
@@ -65,8 +70,8 @@ Alur proyek terdiri dari 5 tahapan utama:
 * **Tingkat Kesulitan:** ⭐⭐⭐⭐☆ (Tinggi - Rentan error dependency, relasi database, dan API AI).
 
 #### Tanggung Jawab Utama:
-* Setup Database / DWH target lokal/cloud (misal: PostgreSQL, MySQL, DuckDB, atau SQLite).
-* Menjalankan skrip `schema_dwh.sql` dari Anggota 1 untuk membuat tabel-tabel di database.
+* Setup Database target DWH menggunakan **MySQL 8.x** (membuat database `dwh_olist` secara lokal/server).
+* Menjalankan skrip `schema_dwh.sql` dari Anggota 1 untuk membuat tabel-tabel di MySQL.
 * Membangun script pipeline **ETL (Extract - Transform - Load)**:
   * **Extract:** Membaca data bersih dari Anggota 2.
   * **Transform:** Mengonversi data staging ke bentuk skema dimensional (memisahkan tabel fakta dan dimensi, men-generate *Surrogate Keys*).
@@ -120,7 +125,7 @@ flowchart TD
 | **Step 1** | **Hunting Dataset di Kaggle**<br>Cari dataset yang memiliki data transaksi dan data relasi (disarankan: E-commerce, Retail Sales, atau Hotel Booking). | Tim (Bersama) | - |
 | **Step 2** | **Analisis Bisnis & Desain Skema DWH**<br>Tentukan tabel fakta, dimensi, metrik, dan buat diagram Star Schema. Buat DDL SQL. | **Anggota 1** | Step 1 selesai |
 | **Step 3** | **Data Profiling & Cleansing**<br>Identifikasi kelemahan data mentah, tulis script pembersihan, hasilkan file data bersih. | **Anggota 2** | Step 1 selesai (jalan paralel dengan Step 2) |
-| **Step 4** | **Setup Database & Inisialisasi Skema**<br>Jalankan DDL dari Anggota 1 di database target (PostgreSQL/DuckDB). | **Anggota 3** | Step 2 selesai |
+| **Step 4** | **Setup Database & Inisialisasi Skema**<br>Jalankan DDL dari Anggota 1 di database target (**MySQL 8.x**). | **Anggota 3** | Step 2 selesai |
 | **Step 5** | **Implementasi Script ETL + Modul AI**<br>Ambil data bersih dari Anggota 2, jalankan modul AI untuk transformasi, lalu load ke database. | **Anggota 3** *(didukung Anggota 2)* | Step 3 & Step 4 selesai |
 | **Step 6** | **Verifikasi & Query Testing**<br>Jalankan 3-5 query SQL analitik untuk membuktikan skema DWH berhasil menjawab kebutuhan bisnis. | Tim (Dipimpin Anggota 1) | Step 5 selesai |
 | **Step 7** | **Finalisasi Laporan & Presentasi**<br>Kompilasi dokumentasi desain, script cleansing, kode ETL, dan insight bisnis. | Tim (Bersama) | Step 6 selesai |
@@ -153,9 +158,7 @@ flowchart TD
 
 * **Data Modeling:** [dbdiagram.io](https://dbdiagram.io), Draw.io, atau Lucidchart.
 * **Cleansing & Exploration:** Python (`pandas`, `numpy`, `missingno`, `jupyter notebook`).
-* **Database Target DWH:** 
-  * *Opsi Praktis / Cepat:* **DuckDB** atau **SQLite** (tanpa perlu install server DB berat).
-  * *Opsi Enterprise / Nilai Tambah Dosen:* **PostgreSQL**.
+* **Database Target DWH:** **MySQL 8.x** (Disepakati sebagai database target kelompok, database: `dwh_olist`, engine: `InnoDB`, charset: `utf8mb4`). Skrip DDL disiapkan di `sql/schema_dwh.sql`.
 * **AI Transformation:** Python (`google-generativeai`, `openai`, `langchain`, atau lokal LLM via `ollama`).
 * **Version Control & Kolaborasi:** GitHub / GitLab (buat 1 repository untuk kelompok).
 
