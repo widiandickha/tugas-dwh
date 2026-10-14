@@ -36,10 +36,10 @@ Alur proyek terdiri dari 5 tahapan utama:
 * Menyusun skrip DDL SQL (`CREATE TABLE ...`) untuk inisialisasi tabel target di DWH.
 
 #### Deliverables (Output Nyata):
-* [ ] Diagram Alur Bisnis (*Business Process Flowchart*).
-* [ ] Diagram ERD DWH (*Star Schema* / *Snowflake Schema*) menggunakan tools seperti [dbdiagram.io](https://dbdiagram.io) atau Draw.io.
-* [ ] Dokumen Kamus Data (*Data Dictionary*) dalam format Markdown/Excel.
-* [ ] File script `schema_dwh.sql` (struktur tabel DWH).
+* [x] Diagram Alur Bisnis (*Business Process Flowchart*) di [`docs/business_process.md`](docs/business_process.md).
+* [x] Diagram ERD DWH (*Star Schema*) di [`docs/dwh_schema_design.md`](docs/dwh_schema_design.md) & [`docs/images/star_schema.png`](docs/images/star_schema.png).
+* [x] Dokumen Kamus Data (*Data Dictionary*) di [`docs/data_dictionary.md`](docs/data_dictionary.md).
+* [x] File script `schema_dwh.sql` di [`sql/schema_dwh.sql`](sql/schema_dwh.sql).
 
 ---
 
@@ -59,9 +59,10 @@ Alur proyek terdiri dari 5 tahapan utama:
 * Menyusun laporan ringkasan kualitas data sebelum vs sesudah dibersihkan (*Before vs After Summary*).
 
 #### Deliverables (Output Nyata):
-* [ ] Notebook / Skrip Python pembersihan data (`data_cleansing.ipynb` / `cleansing.py`).
-* [ ] File dataset bersih (*Cleaned Dataset*) siap olah.
-* [ ] Laporan singkat metrik pembersihan (berapa baris dibersihkan, data kosong yang diatasi, dsb).
+* [x] Notebook & Skrip Python pembersihan data ([`src/cleansing/data_profiling.py`](src/cleansing/data_profiling.py), [`src/cleansing/data_profiling.ipynb`](src/cleansing/data_profiling.ipynb), [`src/cleansing/cleansing.py`](src/cleansing/cleansing.py)).
+* [x] 7 File dataset bersih (*Cleaned Dataset*) siap olah di [`data/staging/`](data/staging/).
+* [x] Laporan ringkas metrik pembersihan di [`docs/data_cleansing_report.md`](docs/data_cleansing_report.md).
+* [x] Panduan Handover untuk Anggota 3 di [`PANDUAN_ANGGOTA_3.md`](PANDUAN_ANGGOTA_3.md).
 
 ---
 

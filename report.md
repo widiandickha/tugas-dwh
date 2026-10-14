@@ -3,8 +3,12 @@
 * **Proyek:** Perancangan Data Warehouse & AI-assisted ETL E-Commerce
 * **Dataset Sumber:** [Brazilian E-Commerce Public Dataset by Olist (Kaggle)](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
 * **Target Database:** MySQL 8.x
-* **Penyusun:** Anggota 1 (Data Architect & Business Analyst)
-* **Status Proyek:** Fase 1 (Inisiasi) & Fase 2 (Desain Arsitektur) telah selesai 100%. Berkas telah didistribusikan ke grup kerja.
+* **Status Proyek:** 
+  * Fase 1 (Inisiasi & Desain Arsitektur) — **Selesai 100% (Anggota 1)**
+  * Fase 2 (Data Profiling & Cleansing) — **Selesai 100% (Anggota 2)**
+  * Fase 3 (Setup Database, AI Enrichment & ETL) — **Selesai 100% (Anggota 3)**
+  * Fase 4 (Analytical Dashboard & Verifikasi KPI) — **Selesai 100% (Tim)**
+* **Panduan Demo & Ringkasan Eksekutif:** Tersedia lengkap di [`PANDUAN_DEMO_DAN_RINGKASAN_DWH.md`](PANDUAN_DEMO_DAN_RINGKASAN_DWH.md)
 
 ---
 
@@ -85,44 +89,41 @@ DWH BARU/
 
 ---
 
-## 3. Langkah Lanjutan & Pembagian Tugas (Next Action Items)
+## 3. Hasil Deliverables Anggota 2 (Selesai 100%)
 
-Dengan selesainya seluruh deliverable Anggota 1, tongkat estafet proyek kini berada di tangan Anggota 2 dan Anggota 3 untuk pengerjaan fase berikutnya:
+Anggota 2 telah menyelesaikan seluruh tugas profiling dan pembersihan data. Seluruh berkas kini tersedia di repository:
+1. **Raw Dataset**: 9 berkas CSV tersimpan di [`data/raw/`](data/raw/).
+2. **Profiling Script**: [`src/cleansing/data_profiling.py`](src/cleansing/data_profiling.py) dan [`src/cleansing/data_profiling.ipynb`](src/cleansing/data_profiling.ipynb).
+3. **Cleansing Pipeline Script**: [`src/cleansing/cleansing.py`](src/cleansing/cleansing.py).
+4. **Staging Dataset (Cleaned)**: 7 file CSV bersih tersimpan di [`data/staging/`](data/staging/):
+   * `clean_customers.csv` (99.441 baris)
+   * `clean_sellers.csv` (3.095 baris)
+   * `clean_products.csv` (32.951 baris)
+   * `clean_orders.csv` (99.441 baris)
+   * `clean_order_items.csv` (112.650 baris)
+   * `clean_order_payments.csv` (103.886 baris)
+   * `clean_order_reviews.csv` (98.410 baris)
+5. **Laporan Kualitas Data**: Tersedia di [`docs/data_cleansing_report.md`](docs/data_cleansing_report.md).
 
-```mermaid
-flowchart LR
-    A["Anggota 1: Selesai Desain & DDL"] --> B["Anggota 2: Profiling & Cleansing"]
-    A --> C["Anggota 3: Setup Database MySQL"]
-    B --> D["Data Bersih di data/staging/"]
-    C --> E["Jalankan schema_dwh.sql"]
-    D --> F["Anggota 3: Bangun ETL & AI"]
-    E --> F
-    F --> G["Validasi Query Analitik (Tim)"]
-```
+---
 
-### A. Tindakan Segera untuk Anggota 2 (Data Quality & Cleansing Engineer):
-1. **Unduh Dataset**: Ambil dataset Olist dari Kaggle dan simpan seluruh CSV ke folder `data/raw/`.
-2. **Audit Kualitas (Profiling)**: Cek missing values pada kolom ulasan (`review_comment_message`), format tanggal pada tabel orders, dan duplikasi data.
-3. **Pembersihan Data**:
-   * Sesuaikan nama kolom hasil pembersihan dengan acuan di [`docs/data_dictionary.md`](docs/data_dictionary.md).
-   * Gabungkan nama kategori produk bahasa Portugis dengan terjemahan bahasa Inggris (`product_category_name_translation.csv`).
-   * Standarisasi format tanggal menjadi `YYYY-MM-DD HH:MM:SS`.
-   * Bersihkan format teks kota dan kode negara bagian (*state*).
-4. **Ekspor Data Bersih**: Simpan data hasil pembersihan ke folder `data/staging/`.
+## 4. Hasil Deliverables Anggota 3 (Selesai 100%)
 
-### B. Tindakan Segera untuk Anggota 3 (ETL & Database Engineer):
-1. **Setup Database**:
-   * Siapkan server MySQL lokal (MySQL 8.x via Docker, MySQL Workbench, XAMPP, atau CLI).
-   * Buat database baru: `CREATE DATABASE dwh_olist;`.
-2. **Inisialisasi Skema**:
-   * Jalankan berkas [`sql/schema_dwh.sql`](sql/schema_dwh.sql) untuk membentuk tabel dimensi dan tabel fakta secara otomatis.
-3. **Bangun Modul AI**:
-   * Buat modul Python di `src/etl/ai_transformer.py` untuk mengklasifikasikan sentimen kolom ulasan pembeli (`Positive`, `Neutral`, `Negative`) guna mengisi kolom `sentiment_category` pada tabel `dim_reviews`.
-4. **Bangun Pipeline ETL**:
-   * Ekstraksi data dari `data/staging/`.
-   * Bentuk *Surrogate Keys* dan relasikan kunci ke tabel fakta `fact_order_items`.
-   * Muat data (*Load*) ke MySQL secara bertahap (tabel dimensi terlebih dahulu, baru tabel fakta).
+Anggota 3 telah menyelesaikan implementasi database target, modul AI sentimen, dan pipeline ETL:
+1. **Modul AI Sentimen**: [`src/etl/ai_transformer.py`](src/etl/ai_transformer.py) (klasifikasi sentimen berbasis NLP/LLM dengan fallback leksikon Portugis).
+2. **Koneksi Basis Data**: [`src/etl/database_config.py`](src/etl/database_config.py).
+3. **Pipeline ETL**: [`src/etl/etl_pipeline.py`](src/etl/etl_pipeline.py) (memuat 8 tabel ke MySQL tanpa pelanggaran foreign key).
+4. **Eksekusi 5 Query KPI**: [`src/etl/run_kpi_queries.py`](src/etl/run_kpi_queries.py).
+5. **Laporan Resmi Pengujian KPI**: Tersedia lengkap di [`HASIL_QUERY_ANALITIK_KPI.md`](HASIL_QUERY_ANALITIK_KPI.md).
 
-### C. Tindakan Akhir Bersama (Testing & Laporan Akhir):
-* Setelah data terisi di MySQL, jalankan skrip [`sql/analytical_queries.sql`](sql/analytical_queries.sql) bersama-sama untuk memvalidasi output insight bisnis.
-* Susun laporan akhir dan slide presentasi proyek berdasarkan seluruh dokumen yang telah dirapikan.
+---
+
+## 5. Hasil Deliverables Dashboard Analitik & Executive Presentation (Selesai 100%)
+
+Untuk melengkapi seluruh rangkaian proyek data warehouse, telah dibangun sistem visualisasi analitik interaktif:
+1. **Dashboard Utama (Streamlit Python)**: [`src/dashboard/app.py`](src/dashboard/app.py) & [`src/dashboard/data_loader.py`](src/dashboard/data_loader.py).
+   * Menampilkan ringkasan metrik eksekutif, tabel rekonsiliasi data mentah vs bersih (112k item), visualisasi 5 KPI bisnis (lonjakan Black Friday Nov 2017 & korelasi delay vs AI sentimen), simulator ulasan AI live, dan live SQL query runner.
+   * Dilengkapi arsitektur *Dual-Mode*: membaca data MySQL jika server aktif, atau fallback otomatis ke in-memory staging engine jika offline.
+2. **Cadangan Darurat / Fail-Safe Preview (HTML5)**: [`src/dashboard/standalone_preview.html`](src/dashboard/standalone_preview.html).
+   * Berkas visualisasi mandiri tanpa dependensi luar, siap dibuka langsung di peramban web pada saat demo.
+3. **Panduan Presentasi Praktik**: Tersedia lengkap di [`PANDUAN_DEMO_DAN_RINGKASAN_DWH.md`](PANDUAN_DEMO_DAN_RINGKASAN_DWH.md).

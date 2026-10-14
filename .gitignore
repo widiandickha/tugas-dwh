@@ -37,3 +37,4 @@ data/staging/*
 *.sqlite3
 logs/
 *.log
+UPDATE/

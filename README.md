@@ -151,3 +151,15 @@ Perintah ini akan secara otomatis membuat database `dwh_olist` beserta 8 tabel, 
 mysql -u root -p dwh_olist < sql/analytical_queries.sql
 ```
 * Hasil query akan menampilkan visualisasi data tabular untuk validasi 5 KPI bisnis.
+
+### 5. Menjalankan Dashboard Analitik Interaktif
+Proyek ini dilengkapi dengan **Executive & Analytical Dashboard** yang memvisualisasikan seluruh 5 KPI bisnis, tabel rekonsiliasi mutu data, korelasi ulasan AI sentimen, dan live SQL explorer:
+
+* **Opsi 1 — Streamlit Dashboard (Python)**:
+  ```bash
+  ./venv/bin/streamlit run src/dashboard/app.py
+  ```
+  *(Otomatis membuka http://localhost:8501 di browser dengan visualisasi interaktif Plotly)*
+
+* **Opsi 2 — Standalone Fail-Safe Preview (HTML5 / Zero-Setup)**:
+  Cukup klik ganda atau buka file [`src/dashboard/standalone_preview.html`](src/dashboard/standalone_preview.html) langsung di peramban web (Chrome/Edge/Safari). Sangat ideal sebagai cadangan darurat presentasi.
