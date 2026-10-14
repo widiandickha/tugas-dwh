@@ -65,12 +65,18 @@ flowchart LR
      ```
    * Dashboard otomatis terbuka di browser (`http://localhost:8501`).
    * Dashboard ini memiliki fitur *Dual-Mode*: jika MySQL aktif, ia menarik langsung dari database fisik; jika tidak aktif, ia otomatis memakai in-memory staging engine sehingga **100% anti-crash**.
-2. **Opsi 2 (Cadangan Darurat / Fail-Safe)**:
+2. **Opsi 2 (Satu Perintah dengan Docker Compose)**:
+   * Jika teman atau penguji memiliki Docker:
+     ```bash
+     docker compose up -d
+     ```
+   * MySQL dan Dashboard Streamlit langsung aktif bersamaan di `http://localhost:8501`.
+3. **Opsi 3 (Cadangan Darurat / Fail-Safe)**:
    * Jika laptop tidak bisa menjalankan Python di kelas, cukup klik ganda file:
      👉 [`src/dashboard/standalone_preview.html`](src/dashboard/standalone_preview.html)
    * Berkas HTML ini langsung terbuka di Google Chrome/Safari/Edge lengkap dengan visualisasi Chart.js, kartu KPI, dan navigasi tab tanpa perlu dependensi apa pun!
-3. **Persiapan Database Fisik (Jika Dosen Meminta Cek Database Langsung)**:
-   * Pastikan MySQL aktif (XAMPP / Service).
+4. **Persiapan Database Fisik (Jika Dosen Meminta Cek Database Langsung)**:
+   * Pastikan MySQL aktif (XAMPP / Service / Docker).
    * Buka aplikasi SQLyog / DBeaver / MySQL Workbench di database `dwh_olist`.
    * Siapkan tab query dengan berkas `sql/analytical_queries.sql`.
 

@@ -1,0 +1,54 @@
+services:
+  # ---------------------------------------------------------------------------
+  # 1. DATABASE SERVICE: MySQL 8.x (Target Data Warehouse)
+  # ---------------------------------------------------------------------------
+  mysql:
+    image: mysql:8.0
+    container_name: dwh_olist_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: dwh_olist
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "3306:3306"
+    volumes:
+      # Inisialisasi otomatis skema DDL Star Schema saat container pertama kali dibuat
+      - ./sql/schema_dwh.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ---------------------------------------------------------------------------
+  # 2. ANALYTICAL DASHBOARD SERVICE: Streamlit (Executive & KPI Explorer)
+  # ---------------------------------------------------------------------------
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dwh_olist_dashboard
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    environment:
+      DWH_MYSQL_HOST: mysql
+      DWH_MYSQL_PORT: 3306
+      DWH_MYSQL_USER: root
+      DWH_MYSQL_PASSWORD: ""
+      DWH_MYSQL_DATABASE: dwh_olist
+      STREAMLIT_SERVER_HEADLESS: "true"
+      STREAMLIT_BROWSER_GATHER_USAGE_STATS: "false"
+    volumes:
+      # Mount direktori agar perubahan kode atau data langsung tersinkronisasi
+      - ./src:/app/src
+      - ./data:/app/data
+      - ./docs:/app/docs
+      - ./sql:/app/sql
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data:

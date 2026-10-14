@@ -33,7 +33,12 @@ def check_mysql_connection():
         engine = create_engine(url, connect_args={'connect_timeout': 2})
         with engine.connect() as conn:
             res = conn.execute(text("SELECT COUNT(*) FROM fact_order_items")).fetchone()
-            return True, f"Terhubung ke MySQL ({db_host}:{db_port}/{db_name}) ({res[0]:,} baris di fact_order_items)", engine
+            cnt = res[0] if res else 0
+            if cnt > 0:
+                msg = f"Terhubung ke MySQL ({db_host}:{db_port}/{db_name}) ({cnt:,} baris di fact_order_items)"
+            else:
+                msg = f"Terhubung ke MySQL ({db_host}:{db_port}/{db_name}) (Skema DDL Aktif, Staging Fallback Siap)"
+            return True, msg, engine
     except Exception as e:
         return False, f"Mode Offline Aktif (Data Staging & In-Memory Engine)", None
 

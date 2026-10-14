@@ -163,3 +163,14 @@ Proyek ini dilengkapi dengan **Executive & Analytical Dashboard** yang memvisual
 
 * **Opsi 2 — Standalone Fail-Safe Preview (HTML5 / Zero-Setup)**:
   Cukup klik ganda atau buka file [`src/dashboard/standalone_preview.html`](src/dashboard/standalone_preview.html) langsung di peramban web (Chrome/Edge/Safari). Sangat ideal sebagai cadangan darurat presentasi.
+
+### 6. Menjalankan via Docker Compose (Satu Perintah Langsung Aktif)
+Bagi rekan tim atau dosen yang ingin langsung menjalankan seluruh ekosistem (Database MySQL 8.x + Streamlit Dashboard) secara instan tanpa perlu install Python atau MySQL di laptop:
+
+```bash
+# Jalankan seluruh service (MySQL + Dashboard)
+docker compose up -d
+```
+* **MySQL 8.x DWH**: Otomatis aktif di `localhost:3306` dengan skema `dwh_olist` yang sudah terinisialisasi.
+* **Streamlit Dashboard**: Langsung bisa dibuka di peramban pada `http://localhost:8501`.
+* **Menghentikan Layanan**: `docker compose down`
